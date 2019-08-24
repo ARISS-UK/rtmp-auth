@@ -23,7 +23,7 @@ class S(BaseHTTPRequestHandler):
 
     def do_POST(self):
         post_data = parse_qs(self.rfile.read(int(self.headers['Content-Length'])).decode('utf-8'))
-        if post_data['name'][0] in auth_keys:
+        if 'name' in post_data and post_data['name'][0] in auth_keys:
           self._set_auth(auth_keys[post_data['name'][0]])
         else:
           self._set_unauth()
